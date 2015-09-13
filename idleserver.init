@@ -1,0 +1,39 @@
+#!/bin/bash
+##
+# chkconfig: 345 55 25
+# description: IdleServer Network Monitor
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+case "$1" in
+start)
+        echo -n "Starting IdleServer:"
+        if ! pidof idleserver >/dev/null; then
+            /usr/local/sbin/idleserver
+            echo_success
+        else
+            echo_failure
+        fi
+        echo
+        ;;
+stop)
+        pid=`pidof idleserver`;
+        echo -n "Stopping IdleServer:"
+        if [ -n "$pid" ]; then
+            kill -9 $pid
+            echo_success
+        else
+            echo_failure
+        fi
+        echo
+        ;;
+restart)
+        $0 stop
+        $0 start
+        ;;
+*)
+        echo "usage: $0 [start|stop|restart]"
+esac
+exit 0
