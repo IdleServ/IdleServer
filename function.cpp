@@ -66,6 +66,7 @@ namespace idleserver
             status = true;
         else
             status = false;
+        curl_easy_cleanup(curl);
     
     }
 
