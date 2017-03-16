@@ -118,7 +118,6 @@ int main()
         curl = curl_easy_init();
         
         // Test HTTP Servers
-        idleserver::stats_http(curl, curlF, 80, sS.services[spHTTP]);
         idleserver::stats_http(curl, curlF, 2083, sS.services[spCPANEL]);
         idleserver::stats_http(curl, curlF, 2087, sS.services[spWHM]);
         idleserver::stats_http(curl, curlF, 2096, sS.services[spWEBMAIL]);
