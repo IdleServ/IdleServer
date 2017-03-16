@@ -18,13 +18,15 @@ namespace idleserver
 		std::ifstream fileStream(fileName.c_str(), std::ifstream::in);
 		
 		// Fail?
-		if(!fileStream.good())
+		if(!fileStream.good()) {
 			return "";
+        }
 
 		// Get contents
 		std::string fileContent, fileLine;
-		while(getline(fileStream, fileLine))
+		while(getline(fileStream, fileLine)) {
 			fileContent += fileLine + "\n";
+        }
 
 		// Close File
 		fileStream.close();
@@ -42,14 +44,16 @@ namespace idleserver
     void stats_http(CURL *curl, FILE *curlF, const unsigned short &port, bool &status){
     
         // Check socket first
-        if(!status)
+        if(!status) {
             return;
+        }
     
         // Make URL
         std::ostringstream ostream;
         ostream << ((port == 80) ? "http" : "https") << "://127.0.0.1";
-        if(port != 80)
+        if(port != 80) {
             ostream << ":" << port;
+        }
         std::string url = ostream.str();
 
         // Do HEAD request
@@ -62,10 +66,11 @@ namespace idleserver
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, curlF);
         curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10);
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
-        if(curl_easy_perform(curl) == CURLE_OK)
+        if(curl_easy_perform(curl) == CURLE_OK) {
             status = true;
-        else
+        } else {
             status = false;
+        }
     
     }
 
